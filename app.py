@@ -17,7 +17,7 @@ def my_form_post():
     q.put(sf)
     for elem in list(q.queue):
         print elem
-    return "Great choice ;) Thanks for submitting: " + song + url
+    return "Great choice ;) Thanks for submitting: " + song
 
 # Global Queue
 q = Queue()
