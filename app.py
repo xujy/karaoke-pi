@@ -19,8 +19,8 @@ def my_form_post():
         print elem
     return "Great choice ;) Thanks for submitting: " + song + url
 
+# Global Queue
 q = Queue()
-
 
 if __name__ == '__main__':
     app.run()
