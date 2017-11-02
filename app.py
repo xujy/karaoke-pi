@@ -52,6 +52,7 @@ class queueThread (threading.Thread):
                 count -= 1
             if not q.empty():
                 nextsong = q.get()
+                url = str(nextsong['url'])
                 print nextsong
             else:
                 print "Queue is empty"
