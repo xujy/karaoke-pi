@@ -15,3 +15,7 @@ class psqldatabase:
     def GET_SONG_URL(self, title):
         self.cur.execute("SELECT url FROM songs WHERE title=" + title)
         return self.cur.fetchone()
+
+    def STORE_SONG(self, title, url):
+        self.cur.execute("INSERT INTO songs (title, url) \
+                VALUES ('" + title + "', '" + url "');")
