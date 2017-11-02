@@ -2,10 +2,16 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from Queue import Queue
+from database import psqldatabase
 import threading
 import time
 
 app = Flask(__name__)
+
+# Global Queue
+q = Queue()
+
+#db = psqldatabase()
 
 @app.route('/')
 def render_home():
@@ -15,14 +21,11 @@ def render_home():
 def my_form_post():
     song = request.form['song']
     url = request.form['url']
+    #cleanurl = db.FORMAT_URL()
     sf = {"song": song,"url": url}
     q.put(sf)
-    #for elem in list(q.queue):
-    #    print elem
     return "Great choice ;) Thanks for submitting: " + song
 
-# Global Queue
-q = Queue()
 
 class flaskThread (threading.Thread):
    def __init__(self, threadID, name, appName):
