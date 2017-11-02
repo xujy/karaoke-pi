@@ -3,6 +3,7 @@ from flask import request
 from flask import render_template
 from Queue import Queue
 import threading
+import time
 
 app = Flask(__name__)
 
@@ -16,8 +17,8 @@ def my_form_post():
     url = request.form['url']
     sf = {"song": song,"url": url}
     q.put(sf)
-    for elem in list(q.queue):
-        print elem
+    #for elem in list(q.queue):
+    #    print elem
     return "Great choice ;) Thanks for submitting: " + song
 
 # Global Queue
@@ -31,9 +32,31 @@ class flaskThread (threading.Thread):
       self.appName = appName
    def run(self):
       self.appName.run()
-      
+
+class queueThread (threading.Thread):
+    def __init__(self, threadID, name):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
+    def run(self):
+        # Infinite while loop to continuously check for new songs in queue
+        while True:
+            count = 10
+            # Temporarily using count to imitate waiting for song to complete
+            while count != 0:
+                print count
+                time.sleep(1)
+                count -= 1
+            if not q.empty():
+                nextsong = q.get()
+                print nextsong
+            else:
+                print "Queue is empty"
+
 # Create new threads
 flaskthread = flaskThread(1, "mainflask", app)
+queuethread = queueThread(2, "mainqueue")
 
 # Start new Threads
 flaskthread.start()
+queuethread.start()
