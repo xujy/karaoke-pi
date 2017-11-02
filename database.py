@@ -5,6 +5,10 @@ class psqldatabase:
         self.conn = psycopg2.connect("dbname=karaoke user=postgres")
         self.cur = conn.cursor()
 
+    def FORMAT_URL(self, url):
+        # TODO: Function should return formatted URL
+        return url
+
     def CTABLE(self):
         self.cur.execute("CREATE TABLE songs (id serial PRIMARY KEY, title varchar, url varchar);")
 
@@ -17,5 +21,4 @@ class psqldatabase:
         return self.cur.fetchone()
 
     def STORE_SONG(self, title, url):
-        self.cur.execute("INSERT INTO songs (title, url) \
-                VALUES ('" + title + "', '" + url "');")
+        self.cur.execute("INSERT INTO songs (title, url) VALUES ('\" + title + \"', '\" + url \"');")
