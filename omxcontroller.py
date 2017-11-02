@@ -8,4 +8,4 @@ def PLAY(url):
     realurl = proc.stdout.read()
     player = OMXPlayer(realurl.decode("utf-8", "strict")[:-1])
 
-PLAY('https://youtu.be/ZqtyQuXo9zM')
+PLAY('')
