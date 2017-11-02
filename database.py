@@ -2,7 +2,7 @@ import psycopg2
 
 class psqldatabase:
     def __init__(self):
-        self.conn = psycopg2.connect("dbname=karaoke_songs user=")
+        self.conn = psycopg2.connect("dbname=karaoke user=postgres")
         self.cur = conn.cursor()
 
     def CTABLE(self):
@@ -10,4 +10,8 @@ class psqldatabase:
 
     def GET_ALL(self):
         self.cur.execute("SELECT * FROM songs;")
-        self.cur.fetchone()
+        return self.cur.fetchall()
+
+    def GET_SONG_URL(self, title):
+        self.cur.execute("SELECT url FROM songs WHERE title=" + title)
+        return self.cur.fetchone()
